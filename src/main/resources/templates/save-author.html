@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>Add an author</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', sans-serif;
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full height of the viewport */
+            margin: 0; /* Remove default margin */
+        }
+        .container {
+            width: 100%; /* Responsive width */
+            max-width: 600px; /* Maximum width */
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+            color: #007bff;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 15px; /* A crescut padding-ul pentru a face butonul mai mare */
+            font-size: 18px; /* Mărimea fontului */
+            margin-top: 20px; /* Spațiu deasupra butonului */
+            margin-bottom: 10px; /* Spațiu sub buton */
+        }
+        .input-group-text {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+        .form-control {
+            margin-bottom: 15px; /* Spațiu între câmpuri */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add New Author</h2>
+    <form th:action="@{/save/author}" method="post" th:object="${author}">
+        <!-- Author Name -->
+        <div class="mb-3">
+            <label for="author-name" class="form-label">Author Name</label>
+            <div class="input-group">
+                <span class="input-group-text" id="span-name"></span>
+                <input type="text" id="author-name" class="form-control" placeholder="Author name"
+                       aria-label="name" aria-describedby="span-name" th:field="*{name}" required>
+            </div>
+        </div>
+
+        <!-- Birth Date -->
+        <div class="mb-3">
+            <label for="birth-date" class="form-label">Birth Date</label>
+            <div class="input-group">
+                <span class="input-group-text" id="span-birthDate"></span>
+                <input type="date" id="birth-date" class="form-control" aria-label="birthDate"
+                       aria-describedby="span-birthDate" th:field="*{birthDate}" required>
+            </div>
+        </div>
+
+        <!-- Death Date (optional) -->
+        <div class="mb-3">
+            <label for="death-date" class="form-label">Death Date (optional)</label>
+            <div class="input-group">
+                <span class="input-group-text" id="span-deathDate"></span>
+                <input type="date" id="death-date" class="form-control" aria-label="deathDate"
+                       aria-describedby="span-deathDate" th:field="*{deathDate}">
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Author</button>
+        </div>
+    </form>
+    <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+</div>
+</body>
+</html>

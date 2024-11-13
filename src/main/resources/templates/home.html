@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .full-height {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 50px;
+          }
+        .custom-button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .custom-button:hover {
+            background-color: #0056b3;
+        }
+        .welcome-message {
+            text-align: center;
+            font-size: 60px;
+            font-family: 'Pacifico', cursive;
+            color: #6A5ACD;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+</head>
+<body>
+<h6 class="welcome-message">WELCOME TO OUR LIBRARY</h6>
+
+<div class="container full-height">
+    <div class="row w-100">
+        <div class="col-2"></div>
+        <div class="col-8 text-center">
+            <div class="button-container">
+                <a href="http://localhost:8080/owner/save" class="button-link">
+                    <button type="button" class="custom-button">
+                        Create an account
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<div class="container full-height">
+    <div class="row w-100">
+        <div class="col-2"></div>
+        <div class="col-8 text-center">
+            <div class="button-container">
+                <a href="http://localhost:8080/customer" class="button-link">
+                    <button type="button" class="custom-button">
+                        I am a customer
+                    </button>
+                </a>
+                <a href="http://localhost:8080/librarian" class="button-link">
+                    <button type="button" class="custom-button">
+                        I am a librarian
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+</body>
+</html>

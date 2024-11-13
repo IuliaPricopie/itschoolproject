@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Librarian</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .btn-custom-turquoise {
+        background-color: #40E0D0;
+        color: white;
+        padding: 30px 60px;  /* Dimensiuni mai mari */
+        font-size: 30px;      /* Font mai mare */
+        border: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom-turquoise:hover {
+        background-color: #36bfb3;
+    }
+
+    .btn-custom-red {
+        background-color: #822B6A;
+        color: white;
+        padding: 30px 60px;  /* Dimensiuni mai mari */
+        font-size: 30px;      /* Font mai mare */
+        border: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom-red:hover {
+        background-color: #FF6347;
+    }
+
+    .full-height {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center; /* Aproape butoanele */
+        margin-bottom: 20px;
+        width: 70%; /* Ajustăm lățimea pentru a apropia butoanele */
+    }
+
+    .col-md-6 {
+        display: flex;
+        justify-content: center;
+        padding: 0; /* Eliminăm padding-ul implicit */
+        margin-right: 15px; /* Aproape butoanele, dar nu se ating */
+    }
+
+    .col-md-6:last-child {
+        margin-right: 0; /* Eliminăm marginea dreapta pentru ultima coloană */
+    }
+</style>
+</head>
+<body>
+
+<div class="container full-height">
+    <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/save/book">
+                <button type="button" class="btn btn-lg btn-custom-turquoise">
+                    Add Book
+                </button>
+            </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/save/author">
+                <button type="button" class="btn btn-lg btn-custom-turquoise">
+                    Add Author
+                </button>
+            </a>
+        </div>
+
+<!--        <div class="col-md-6 text-center">-->
+<!--            <a href="http://localhost:8080/owner/save">-->
+<!--                <button type="button" class="btn btn-lg btn-custom-turquoise">-->
+<!--                    Add Customer-->
+<!--                </button>-->
+<!--            </a>-->
+<!--        </div>-->
+    </div>
+
+    <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/delete/book">
+                <button type="button" class="btn btn-lg btn-custom-red">
+                    Delete Book
+                </button>
+            </a>
+        </div>
+
+
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/delete/author">
+                <button type="button" class="btn btn-lg btn-custom-red">
+                    Delete Author
+                </button>
+            </a>
+        </div>
+
+<!--        <div class="col-md-6 text-center">-->
+<!--            <a href="http://localhost:8080/owner/delete/page">-->
+<!--                <button type="button" class="btn btn-lg btn-custom-red">-->
+<!--                    Delete Customer-->
+<!--                </button>-->
+<!--            </a>-->
+<!--        </div>-->
+        </div>
+
+        <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/update/a/book">
+                <button type="button" class="btn btn-lg btn-custom-red">
+                    Update Book
+                </button>
+            </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/update/an/author">
+                <button type="button" class="btn btn-lg btn-custom-red">
+                    Update Author
+                </button>
+            </a>
+        </div>
+
+<!--        <div class="col-md-6 text-center">-->
+<!--            <a href="http://localhost:8080/owner/update/page">-->
+<!--                <button type="button" class="btn btn-lg btn-custom-red">-->
+<!--                    Update Customer-->
+<!--                </button>-->
+<!--            </a>-->
+<!--        </div>-->
+
+    </div>
+<a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete owner</title>
+</head>
+<body>
+<form th:action="@{/owner/delete}" method="post">
+    <label for="ownerId">Owner ID:</label>
+    <input type="number" id="ownerId" name="ownerId" required><br><br>
+
+    <button type="submit" class="btn btn-danger">Delete Owner</button>
+</form>
+</body>
+</html>

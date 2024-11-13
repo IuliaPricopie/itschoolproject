@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for books by title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1000px; /* Lățime mai mare pentru monitor */
+            background-color: white;
+            padding: 60px; /* Padding mărit pentru mai mult spațiu */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Umbră mai pronunțată */
+            text-align: center;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 2.5rem; /* Dimensiune mai mare pentru titlu */
+            margin-bottom: 40px; /* Mai mult spațiu sub titlu */
+        }
+
+        .input-group {
+            margin-bottom: 50px; /* Mai mult spațiu între formă și rezultate */
+        }
+
+        .form-control {
+            font-size: 1.5rem; /* Dimensiune mai mare pentru input */
+            padding: 15px; /* Mai mult padding în input */
+        }
+
+        .btn-primary {
+            font-size: 1.5rem; /* Dimensiune mai mare pentru buton */
+            padding: 15px 40px; /* Mai mult padding pentru buton */
+        }
+
+        .delete-btn {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 50px; /* Mai mult padding pentru butonul de ștergere */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.5rem; /* Dimensiune mai mare pentru textul butonului */
+        }
+
+        .delete-btn:hover {
+            background-color: #ff2b0a;
+        }
+
+        .fa-trash {
+            font-size: 1.8rem; /* Dimensiune mai mare pentru coșul de gunoi */
+            margin-right: 12px;
+        }
+
+        .book-details {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px; /* Mai mult spațiu între detalii și buton */
+            text-align: left;
+            font-size: 1.5rem; /* Mărit dimensiunea textului pentru detalii */
+        }
+
+        .book-details p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .book-details strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>Search for books by title</h3>
+
+<form th:action="@{/find/name/book}" method="get" class="form-inline">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter Book Name" name="bookName" required>
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Find Book</button>
+        </div>
+    </div>
+</form>
+
+<div th:if="${book != null}" class="book-details">
+    <h4>Book Details</h4>
+    <p><strong>ID:</strong> <span th:text="${book.id}"></span></p>
+    <p><strong>Title:</strong> <span th:text="${book.name}"></span></p>
+    <p><strong>Pages:</strong> <span th:text="${book.page}"></span></p>
+    <p><strong>Price:</strong> <span th:text="${book.price}"></span></p>
+    <p><strong>Author Name:</strong> <span th:text="${book.author.name}"></span></p>
+
+    <div th:if="${!book.isBorrowed}" class="book-details">
+        <form th:action="@{/find/book/{name}(name=${book.name})}" method="post">
+            <input type="hidden" name="ownerId" th:value="${#authentication.principal.id}" />
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-book"></i> Borrow Book
+            </button>
+        </form>
+    </div>
+    <div th:if="${book.isBorrowed}">
+        This book is already borrowed
+    </div>
+    <form th:action="@{/addToList}" method="post">
+        <input type="hidden" name="bookId" th:value="${book.id}" />
+        <input type="hidden" name="ownerId" th:value="${#authentication.principal.id}" />
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-book"></i> Add to your list
+        </button>
+    </form>
+    </div>
+<a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+</div>
+
+</body>
+</html>

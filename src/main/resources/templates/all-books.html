@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All books</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+</head>
+<body>
+<div class="container">
+    <div class="book-list">
+        <div th:each="book : ${books}" class="book-item">
+            <strong>Title:</strong> <span th:text="${book.name}">Title</span> <br>
+            <strong>Author:</strong> <span th:text="${book.author.name}">Author</span> <br>
+            <strong>Page:</strong> <span th:text="${book.page}">Page</span> <br>
+            <strong>Price:</strong> <span th:text="${book.price}">Price</span> <br>
+            <div th:if="${!book.isBorrowed}" class="book-details">
+                <form th:action="@{/find/book/{name}(name=${book.name})}" method="post">
+                    <input type="hidden" name="ownerId" th:value="${#authentication.principal.id}" />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-book"></i> Borrow Book
+                    </button>
+                </form>
+            </div>
+            <div th:if="${book.isBorrowed}">
+                This book is already borrowed
+            </div>
+            <form th:action="@{/addToList}" method="post">
+                <input type="hidden" name="bookId" th:value="${book.id}" />
+                <input type="hidden" name="ownerId" th:value="${#authentication.principal.id}" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-book"></i> Add to your list
+                </button>
+            </form>
+            <br>
+            <br>
+        </div>
+        <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        </div>
+</div>
+</body>
+</html>

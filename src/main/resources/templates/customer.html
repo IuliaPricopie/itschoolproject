@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .btn-custom-turquoise {
+            background-color: #40E0D0;
+            color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom-turquoise:hover {
+            background-color: #36bfb3;
+        }
+
+        .btn-custom-red {
+            background-color: #FF6347;
+            color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom-red:hover {
+            background-color: #e0523e;
+        }
+
+        .btn-custom {
+    background-color: #E6E6FA; /* Lavanda (mov deschis) */
+    color: white;
+    padding: 30px 60px; /* Dimensiuni mai mari */
+    font-size: 30px; /* Font mai mare */
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #D3D3FF; /* O nuanță mai închisă de lavandă la hover */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+/* Alte culori pale */
+.btn-pale-pink {
+    background-color: #FFB6C1; /* Roz pal */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+.btn-pale-pink:hover {
+    background-color: #FF69B4; /* O nuanță mai închisă de roz la hover */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+.btn-pale-yellow {
+    background-color: #FFF180; /* Galben pal */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+.btn-pale-yellow:hover {
+    background-color: #FFFACD; /* O nuanță mai închisă de galben la hover */
+}
+
+.btn-pale-green {
+    background-color: #98FB98; /* Verde pal */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+.btn-pale-green:hover {
+    background-color: #90EE90; /* O nuanță mai închisă de verde la hover */
+}
+
+.btn-pale-blue {
+    background-color: #ADD8E6; /* Albastru pal */
+    color: white;
+            padding: 30px 60px;  /* Dimensiuni mai mari */
+            font-size: 30px;      /* Font mai mare */
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+}
+
+.btn-pale-blue:hover {
+    background-color: #87CEEB; /* O nuanță mai închisă de albastru la hover */
+}
+
+        .full-height {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Aproape butoanele */
+            margin-bottom: 20px;
+            width: 70%; /* Ajustăm lățimea pentru a apropia butoanele */
+        }
+
+        .col-md-6 {
+            display: flex;
+            justify-content: center;
+            padding: 0; /* Eliminăm padding-ul implicit */
+            margin-right: 15px; /* Aproape butoanele, dar nu se ating */
+        }
+
+        .col-md-6:last-child {
+            margin-right: 0; /* Eliminăm marginea dreapta pentru ultima coloană */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container full-height">
+    <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/name/book">
+                <button type="button" class="btn-pale-pink">
+                    Search for books by title
+                </button>
+            </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/author/book">
+                <button type="button" class="btn-pale-green">
+                    Search for books by author
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/owner/my-profile">
+                <button type="button" class="btn-pale-blue">
+                    My profile
+                </button>
+            </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/all/books">
+                <button type="button" class="btn-pale-yellow">
+                    See all books
+                </button>
+            </a>
+        </div>
+    </div>
+    <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+        <i class="fa-solid fa-house"></i>Home</a>
+</div>
+</body>
+</html>
+

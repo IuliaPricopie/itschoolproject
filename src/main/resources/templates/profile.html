@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+<div>
+    <p><strong>ID:</strong> <span th:text="${owner.id}">ID</span></p>
+    <p><strong>Email:</strong> <span th:text="${owner.mail}">Email</span></p>
+    <p><strong>Username:</strong> <span th:text="${owner.username}">Username</span></p>
+    <p><strong>Age:</strong> <span th:text="${owner.age}">Age</span></p>
+
+    <!-- Verificăm dacă există o carte împrumutată -->
+    <div th:if="${owner.borrowedBook != null}">
+        <p><strong>Borrowed Book:</strong> <span th:text="${owner.borrowedBook.name}">Book Title</span></p>
+    </div>
+    <div th:if="${owner.borrowedBook == null}">
+        <p><strong>Borrowed Book:</strong> None</p>
+    </div>
+
+    <!-- Lista de carti de la relatia ManyToMany -->
+    <h2>Books Owned</h2>
+    <div th:if="${owner.books != null && !owner.books.isEmpty()}">
+        <ul>
+            <li th:each="book : ${owner.books}">
+                <p><strong>Title:</strong> <span th:text="${book.name}">Book Title</span></p>
+                <p><strong>Pages:</strong> <span th:text="${book.page}">Page Count</span></p>
+                <p><strong>Price:</strong> <span th:text="${book.price}">Price</span></p>
+                <p><strong>Is Borrowed:</strong> <span th:text="${book.isBorrowed ? 'Yes' : 'No'}">Borrowed Status</span></p>
+                <form th:action="@{/delete/list}" method="post" class="ms-3">
+                    <input type="hidden" name="bookId" th:value="${book.id}" />
+                    <input type="hidden" name="ownerId" th:value="${#authentication.principal.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm" aria-label="Delete from list">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+
+
+            </li>
+        </ul>
+    </div>
+    <div th:if="${owner.books == null || owner.books.isEmpty()}">
+        <p>No books owned.</p>
+    </div>
+</div>
+<a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+    <i class="fa-solid fa-house"></i>
+    Home
+</a>
+</body>
+</html>
