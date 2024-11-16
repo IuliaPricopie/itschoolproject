@@ -39,30 +39,6 @@ public class BookController {
         return "redirect:/librarian";
     }
 
-
-
-    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-    @GetMapping("/delete/book")
-    public String deleteBookWithHTML(Model model) {
-        return "delete-book";
-    }
-
-    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-    @GetMapping("/find/id/book")
-    public String findBookById(@RequestParam("bookId") Integer id, Model model) {
-        Optional<Book> optionalBook = bookService.findById(id);
-        optionalBook.ifPresent(book -> model.addAttribute("book", book));
-        return "delete-book";
-    }
-
-    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-    @PostMapping("/delete/book/{id}")
-    public String deleteBookById(@PathVariable("id") Integer id) {
-        bookService.deleteById(id);
-        return "redirect:/librarian";
-    }
-
-
     @PreAuthorize("hasRole('ROLE_OWNER')")
     @GetMapping("/name/book")
     public String findBookByTitleWithHTML(Model model) {
@@ -73,8 +49,10 @@ public class BookController {
     @GetMapping("/find/name/book")
     public String findBookByName(@RequestParam("bookName") String name, Model model) {
         Optional<Book> optionalBook = bookService.findByName(name.toLowerCase());
-        optionalBook.ifPresent(book -> model.addAttribute("book", book));
-        return "by-title";
+        if (optionalBook.isPresent()) {
+            model.addAttribute("book", optionalBook.get());
+            return "by-title";
+        } else return "book-not-found";
     }
 
     @PreAuthorize("hasRole('ROLE_OWNER')")
@@ -84,15 +62,12 @@ public class BookController {
         Integer userId = user.getId();
         Optional<Book> optionalBook = bookService.findByName(name.toLowerCase());
         Optional<Owner> owner = ownerService.findById(ownerId);
-        if (optionalBook.isPresent()&&owner.isPresent()&& !optionalBook.get().isBorrowed()){
-            Book book=optionalBook.get();
-            book.setBorrowed(true);
-            book.setBorrower(owner.get());
-            owner.get().setBorrowedBook(book);
-            bookService.saveBook(book);
-            ownerService.saveOwner(owner.get());
+        if (optionalBook.isPresent()&&owner.isPresent()&&owner.get().getBorrowedBook()==null&& !optionalBook.get().isBorrowed()){
+            bookService.borrow(optionalBook.get(),owner.get());
             return "redirect:/customer";
-        } else {
+        } else if (owner.get().getBorrowedBook()!=null) {
+            return "library-rules";
+        }else {
             throw new RuntimeException("This book cannot be borrowed");
         }
     }
@@ -107,27 +82,12 @@ public class BookController {
     @PreAuthorize("hasRole('ROLE_OWNER')")
     @GetMapping("/find/author/book")
     public String findBooksByAuthor(@RequestParam("authorName") String authorName, Model model) {
-        List<Book> bookList = bookService.findByAuthorName(authorName.toUpperCase());
-        model.addAttribute("books", bookList);
-        return "by-author";
-    }
-
-    @PreAuthorize("hasRole('ROLE_OWNER')")
-    @PostMapping("/find/book/author/{authorName}")
-    public String borrowBookByAuthor(@PathVariable("authorName") String authorName, Model model) {
-        Optional<Author> author=authorService.findByName(authorName);
-        if (author.isPresent()){
-            for (Book book:author.get().getBooks()){
-                if (!book.isBorrowed()){
-                    book.setBorrowed(true);
-                    bookService.saveBook(book);
-                    return "redirect:/customer";
-                } else {
-                    throw new RuntimeException("This book cannot be borrowed");
-                }
-            }
-        }else throw new RuntimeException("Author not found");
-        return "redirect:/customer";
+        Optional<Author> author=authorService.findByName(authorName.toUpperCase());
+        if (author.isPresent()) {
+            List<Book> bookList = bookService.findByAuthorName(authorName.toUpperCase());
+            model.addAttribute("books", bookList);
+            return "by-author";
+        } else return "book-not-found";
     }
 
     @PreAuthorize("hasRole('ROLE_OWNER')")
@@ -148,9 +108,8 @@ public class BookController {
     public String updateBook(@RequestParam Integer id,
                                               @RequestParam String name,
                                               @RequestParam int page,
-                                              @RequestParam int price,
-                                              @RequestParam Boolean isBorrowed){
-        bookService.updateBook(id, name,page,price,isBorrowed);
+                                              @RequestParam int price){
+        bookService.updateBook(id, name,page,price);
         return "redirect:/librarian";
     }
 
@@ -162,10 +121,7 @@ public class BookController {
             Optional<Book> book = bookService.findById(bookId);
             Optional<Owner> owner = ownerService.findById(ownerId);
             if (book.isPresent() && owner.isPresent()) {
-                owner.get().getBooks().add(book.get());
-                ownerService.saveOwner(owner.get());
-                book.get().getOwners().add(owner.get());
-                bookService.saveBook(book.get());
+                bookService.addToList(book.get(), owner.get());
             }
             return "redirect:/customer";
         }
@@ -185,12 +141,37 @@ public class BookController {
             }
 //            return "redirect:/owner/my-profile";
             return "redirect:/owner/my-profile";
-
         }
+
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @GetMapping("/book/for/delete")
+    public String getAllBooks(final Model model) {
+        List<Book> books = bookService.findAll();
+        model.addAttribute("books", books);
+        return "books-delete";
+    }
+
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @PostMapping("/book/for/delete/{id}")
+    public String deleteBook(@PathVariable Integer id) {
+        bookService.deleteById(id);
+        return "redirect:/book/for/delete";
+    }
+
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @GetMapping("/return/book")
+    public String returnBook(){
+        return "return-book";
+    }
+
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @PostMapping("/return/a/book")
+    public String returnBook(@RequestParam Integer id){
+        Optional<Book> book=bookService.findById(id);
+        if (book.isPresent()&&book.get().getBorrower()!=null){
+        bookService.returnBook(id);
+        return "redirect:/librarian";}
+        else return "unborrowed-book";
+    }
+
 }
-
-
-
-
-
-

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library rules</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+    }
+
+    .container h1 {
+        font-size: 30px;
+        color: #e74c3c;
+        margin-bottom: 20px;
+    }
+
+    .container .message {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+
+    .container .btn-custom-red {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .container .btn-custom-red:hover {
+        background-color: #2980b9;
+    }
+
+    .container a {
+        text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Library rules</h1>
+  <p class="message">We apologize, but one of the library rules is that you cannot borrow more than one book.
+    <br>You have to return the book you own to the library and then borrow another one</p>
+  <a href="http://localhost:8080/customer">
+    <button type="button" class="btn btn-lg btn-custom-red">
+      Back
+    </button>
+  </a>
+</div>
+</body>
+</html>

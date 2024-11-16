@@ -9,7 +9,7 @@ import ro.itschool.entity.Author;
 import ro.itschool.service.AuthorService;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -32,26 +32,6 @@ public class AuthorController {
         return "redirect:/librarian";
     }
 
-    @GetMapping("/find/id/author")
-    public String findBookById(@RequestParam("authorId") Integer id, Model model) {
-        Optional<Author> optionalAuthor = authorService.findById(id);
-        optionalAuthor.ifPresent(author -> model.addAttribute("author", author));
-        return "delete-author";
-    }
-
-    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-    @PostMapping("/delete/author/{id}")
-    public String deleteAuthorById(@PathVariable("id") Integer id) {
-        authorService.deleteById(id);
-        return "redirect:/librarian";
-    }
-
-    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-    @GetMapping("/delete/author")
-    public String deleteAuthor(Model model) {
-        return "delete-author";
-    }
-
     @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
     @GetMapping("/update/an/author")
     public String updateAnAuthor(){
@@ -69,4 +49,18 @@ public class AuthorController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @GetMapping("/author/delete")
+    public String getAllAuthor(final Model model) {
+        List<Author> authors = authorService.findAll();
+        model.addAttribute("authors", authors);
+        return "delete-author";
+    }
+
+    @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
+    @PostMapping("/author/delete/{id}")
+    public String deleteAuthor(@PathVariable Integer id) {
+        authorService.deleteById(id);
+        return "redirect:/author/delete";
+    }
 }

@@ -16,6 +16,7 @@ import java.util.Optional;
 public class AuthorService {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final BookService bookService;
 
 //    public Author saveAuthor(Author author) {
 //        return authorRepository.save(author);
@@ -36,10 +37,16 @@ public class AuthorService {
 
     public void deleteById(Integer id) {
         Optional<Author> author=authorRepository.findById(id);
-        for (Book book:author.get().getBooks()){
-            bookRepository.delete(book);
+        if (author.isPresent()) {
+            if (author.get().getBooks()!=null) {
+                for (Book book : author.get().getBooks()) {
+                    book.setAuthor(null);
+                    bookRepository.save(book);
+                    bookService.deleteById(book.getId());
+                }
+            }
+            authorRepository.deleteById(id);
         }
-        authorRepository.deleteById(id);
     }
 
     public Optional<Author> findByName(String authorName) {
@@ -49,10 +56,14 @@ public class AuthorService {
     public void updateAuthor(Integer id, String name, LocalDate birthDate, LocalDate deathDate) {
         Optional<Author> author=authorRepository.findById(id);
         if (author.isPresent()){
-            author.get().setName(name);
+            author.get().setName(name.toUpperCase());
             author.get().setBirthDate(birthDate);
             author.get().setDeathDate(deathDate);
             authorRepository.save(author.get());
         }else throw new RuntimeException("Author not found");
+    }
+
+    public List<Author> findAll() {
+        return authorRepository.findAll();
     }
 }

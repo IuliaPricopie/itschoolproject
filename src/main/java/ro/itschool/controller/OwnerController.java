@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,30 +39,6 @@ public class OwnerController {
         owner.setRole(Role.OWNER);
         ownerService.saveOwner(owner);
         return "redirect:/home";
-    }
-
-
-    @GetMapping("/update/page")
-    public String updateAnOwner(){
-        return "update-owner";
-    }
-    @PostMapping("/update")
-    public String updateOwner(@RequestParam Integer id,
-                             @RequestParam String name,
-                             @RequestParam Integer age){
-        ownerService.update(id, name,age);
-        return "redirect:/librarian";
-    }
-
-    @GetMapping("/delete/page")
-    public String delete(){
-        return "delete-owner";
-    }
-
-    @PostMapping("/delete")
-    public String deleteOwner(@RequestParam Integer id, Model model){
-        ownerService.deleteById(id);
-        return "redirect:/librarian";
     }
 
     @PreAuthorize("hasRole('ROLE_OWNER')")

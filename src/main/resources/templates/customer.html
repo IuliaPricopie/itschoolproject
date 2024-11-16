@@ -19,6 +19,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        .btn-home {
+            background-color: #2BA9B0;
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-home:hover {
+            background-color: #37D8E0;
+            transform: scale(1.05);
+        }
+
+        .btn-logout {
+            background-color: #FF6347;
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #e0523e;
+            transform: scale(1.05);
+        }
+
         body, html {
             height: 100%;
             margin: 0;
@@ -27,8 +63,8 @@
         .btn-custom-turquoise {
             background-color: #40E0D0;
             color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
@@ -41,8 +77,8 @@
         .btn-custom-red {
             background-color: #FF6347;
             color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
@@ -53,86 +89,85 @@
         }
 
         .btn-custom {
-    background-color: #E6E6FA; /* Lavanda (mov deschis) */
+    background-color: #E6E6FA;
     color: white;
-    padding: 30px 60px; /* Dimensiuni mai mari */
-    font-size: 30px; /* Font mai mare */
+    padding: 30px 60px;
+    font-size: 30px;
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
 .btn-custom:hover {
-    background-color: #D3D3FF; /* O nuanță mai închisă de lavandă la hover */
+    background-color: #D3D3FF;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
-/* Alte culori pale */
 .btn-pale-pink {
-    background-color: #FFB6C1; /* Roz pal */
+    background-color: #FFB6C1;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
 .btn-pale-pink:hover {
-    background-color: #FF69B4; /* O nuanță mai închisă de roz la hover */
+    background-color: #FF69B4;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
 .btn-pale-yellow {
-    background-color: #FFF180; /* Galben pal */
+    background-color: #FFF180;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
 .btn-pale-yellow:hover {
-    background-color: #FFFACD; /* O nuanță mai închisă de galben la hover */
+    background-color: #FFFACD;
 }
 
 .btn-pale-green {
-    background-color: #98FB98; /* Verde pal */
+    background-color: #98FB98;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
 .btn-pale-green:hover {
-    background-color: #90EE90; /* O nuanță mai închisă de verde la hover */
+    background-color: #90EE90;
 }
 
 .btn-pale-blue {
-    background-color: #ADD8E6; /* Albastru pal */
+    background-color: #ADD8E6;
     color: white;
-            padding: 30px 60px;  /* Dimensiuni mai mari */
-            font-size: 30px;      /* Font mai mare */
+            padding: 30px 60px;
+            font-size: 30px;
             border: none;
             border-radius: 10px;
             transition: background-color 0.3s ease;
 }
 
 .btn-pale-blue:hover {
-    background-color: #87CEEB; /* O nuanță mai închisă de albastru la hover */
+    background-color: #87CEEB;
 }
 
         .full-height {
@@ -145,20 +180,20 @@
 
         .button-container {
             display: flex;
-            justify-content: center; /* Aproape butoanele */
+            justify-content: center;
             margin-bottom: 20px;
-            width: 70%; /* Ajustăm lățimea pentru a apropia butoanele */
+            width: 70%;
         }
 
         .col-md-6 {
             display: flex;
             justify-content: center;
-            padding: 0; /* Eliminăm padding-ul implicit */
-            margin-right: 15px; /* Aproape butoanele, dar nu se ating */
+            padding: 0;
+            margin-right: 15px;
         }
 
         .col-md-6:last-child {
-            margin-right: 0; /* Eliminăm marginea dreapta pentru ultima coloană */
+            margin-right: 0;
         }
     </style>
 </head>
@@ -200,9 +235,17 @@
             </a>
         </div>
     </div>
-    <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+
+    <div class="row button-container">
+    <a href="http://localhost:8080/home" class="btn-home" role="button" aria-pressed="true">
         <i class="fa-solid fa-house"></i>Home</a>
+    <br> <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn-logout">
+            <i class="fa-solid fa-sign-out-alt"></i> Log Out
+        </button>
+    </form>
+    </div>
 </div>
 </body>
 </html>
-

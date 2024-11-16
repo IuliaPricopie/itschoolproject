@@ -48,7 +48,29 @@ public class BookService {
     }
 
     public void deleteById(Integer id) {
-        bookRepository.deleteById(id);
+        Optional<Book> book=bookRepository.findById(id);
+        if (book.isPresent()){
+            List<Owner> owners=book.get().getOwners();
+            for (Owner owner:owners){
+                owner.getBooks().remove(book.get());
+                ownerRepository.save(owner);
+            }
+            book.get().getOwners().clear();
+            if (book.get().getBorrower()!=null){
+                Owner borrower=book.get().getBorrower();
+                borrower.setBorrowedBook(null);
+                book.get().setBorrower(null);
+                ownerRepository.save(borrower);
+            }
+            book.get().setBorrowed(false);
+            if (book.get().getAuthor() != null) {
+                Author author = book.get().getAuthor();
+                author.getBooks().remove(book.get());
+                book.get().setAuthor(null);
+                authorRepository.save(author);
+            }
+            bookRepository.deleteById(id);
+        }
     }
 
     public Optional<Book> findByName(String name) {
@@ -63,13 +85,12 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void updateBook(Integer id, String name, int page, int price, Boolean isBorrowed) {
+    public void updateBook(Integer id, String name, int page, int price) {
         Optional<Book> book=bookRepository.findById(id);
         if (book.isPresent()){
-            book.get().setName(name);
+            book.get().setName(name.toUpperCase());
             book.get().setPage(page);
             book.get().setPrice(price);
-            book.get().setBorrowed(isBorrowed);
             bookRepository.save(book.get());
         }else throw new RuntimeException("book not found");
     }
@@ -87,5 +108,17 @@ public class BookService {
         owner.setBorrowedBook(book);
         bookRepository.save(book);
         ownerRepository.save(owner);
+    }
+
+    public void returnBook(Integer id) {
+        Optional<Book> book=bookRepository.findById(id);
+        if (book.isPresent()){
+            Owner borrower=book.get().getBorrower();
+            borrower.setBorrowedBook(null);
+            book.get().setBorrower(null);
+            book.get().setBorrowed(false);
+            ownerRepository.save(borrower);
+            bookRepository.save(book.get());
+        }
     }
 }

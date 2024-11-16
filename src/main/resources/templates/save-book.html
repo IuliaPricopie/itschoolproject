@@ -22,40 +22,69 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Helvetica Neue', sans-serif;
-            display: flex; /* Flexbox for centering */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            height: 100vh; /* Full height of the viewport */
-            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
+
         .container {
-            width: 100%; /* Responsive width */
-            max-width: 600px; /* Maximum width */
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
         }
+
         h2 {
-            margin-bottom: 30px;
-            font-weight: bold;
             text-align: center;
             color: #007bff;
+            margin-bottom: 30px;
+            font-weight: 700;
         }
-        .btn-primary {
-            width: 100%;
-            padding: 15px; /* A crescut padding-ul pentru a face butonul mai mare */
-            font-size: 18px; /* Mărimea fontului */
-            margin-top: 20px; /* Spațiu deasupra butonului */
-            margin-bottom: 10px; /* Spațiu sub buton */
+
+        .form-label {
+            font-weight: bold;
+            color: #495057;
         }
+
         .input-group-text {
             background-color: #007bff;
-            color: #fff;
+            color: white;
             font-weight: bold;
         }
+
         .form-control {
-            margin-bottom: 15px; /* Spațiu între câmpuri */
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-primary {
+            width: 100%;
+            font-size: 18px;
+            padding: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            display: block;
+            margin: 20px auto 0;
+            font-size: 16px;
+        }
+
+        a.btn-secondary i {
+            margin-right: 8px;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
@@ -64,7 +93,6 @@
 <div class="container">
     <h2>Save a New Book</h2>
     <form th:action="@{/save/book}" method="post" th:object="${book}">
-        <!-- Book Name -->
         <div class="mb-3">
             <label for="book-name" class="form-label">Book Name</label>
             <div class="input-group">
@@ -74,7 +102,6 @@
             </div>
         </div>
 
-        <!-- Number of Pages -->
         <div class="mb-3">
             <label for="number-of-pages" class="form-label">Number of Pages</label>
             <div class="input-group">
@@ -84,7 +111,6 @@
             </div>
         </div>
 
-        <!-- Price -->
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
             <div class="input-group">
@@ -94,7 +120,6 @@
             </div>
         </div>
 
-        <!-- Author ID -->
         <div class="mb-3">
             <label for="author-id" class="form-label">Author ID</label>
             <div class="input-group">
@@ -104,12 +129,11 @@
             </div>
         </div>
 
-        <!-- Save Button -->
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Save Book</button>
         </div>
     </form>
-    <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+    <a href="http://localhost:8080/librarian" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 </body>
 </html>

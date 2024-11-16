@@ -13,11 +13,86 @@
     <!-- Bootstrap JS -->
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
 
-
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
+        .container {
+            width: 60%;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-list {
+            margin-bottom: 30px;
+        }
+
+        .book-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fdfdfd;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-details {
+            margin-top: 15px;
+        }
+
+        .btn-primary, .btn-secondary {
+            background-color: #2BA9B0;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            background-color: #37D8E0;
+            transform: scale(1.05);
+        }
+
+        .btn-primary i, .btn-secondary i {
+            margin-right: 8px;
+        }
+
+        .already-borrowed {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+
+        a.btn-secondary {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -25,7 +100,7 @@
         <div th:each="book : ${books}" class="book-item">
             <strong>Title:</strong> <span th:text="${book.name}">Title</span> <br>
             <strong>Author:</strong> <span th:text="${book.author.name}">Author</span> <br>
-            <strong>Page:</strong> <span th:text="${book.page}">Page</span> <br>
+            <strong>Number of pages:</strong> <span th:text="${book.page}">Pages</span> <br>
             <strong>Price:</strong> <span th:text="${book.price}">Price</span> <br>
             <div th:if="${!book.isBorrowed}" class="book-details">
                 <form th:action="@{/find/book/{name}(name=${book.name})}" method="post">
@@ -48,7 +123,7 @@
             <br>
             <br>
         </div>
-        <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+        <a href="http://localhost:8080/customer" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
             <i class="fa-solid fa-house"></i>
             Home
         </a>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 100%;
+        }
+
+        h3 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        table {
+            border: none;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .btn-danger i {
+            margin-right: 8px;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-lg {
+            font-size: 18px;
+        }
+
+        .btn-home {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="table-container text-center col-8">
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Number of pages</th>
+                <th>Price</th>
+                <th>Borrowed</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.page}"></td>
+                <td th:text="${book.price}"></td>
+                <td th:text="${book.isBorrowed}"></td>
+                <td>
+                    <form th:action="@{'/book/for/delete/' + ${book.id}}" method="post">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="http://localhost:8080/librarian" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+</div>
+
+</body>
+</html>

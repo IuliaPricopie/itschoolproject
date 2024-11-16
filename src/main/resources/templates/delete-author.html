@@ -15,116 +15,134 @@
         <!-- Font Awesome CSS -->
         <!--    <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.2/css/all.min.css}"/>-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+        }
 
-        <style>
-            body, html {
-                height: 100%;
-                margin: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #f4f4f4;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
+        .container {
+            text-align: center;
+            max-width: 100%;
+        }
 
-            .container {
-                max-width: 1000px; /* Lățime mai mare pentru monitor */
-                background-color: white;
-                padding: 60px; /* Padding mărit pentru mai mult spațiu */
-                border-radius: 10px;
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Umbră mai pronunțată */
-                text-align: center;
-            }
+        h3 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 30px;
+        }
 
-            h3 {
-                color: #333;
-                font-size: 2.5rem; /* Dimensiune mai mare pentru titlu */
-                margin-bottom: 40px; /* Mai mult spațiu sub titlu */
-            }
+        .table-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
 
-            .input-group {
-                margin-bottom: 50px; /* Mai mult spațiu între formă și rezultate */
-            }
+        table {
+            border: none;
+            width: 100%;
+        }
 
-            .form-control {
-                font-size: 1.5rem; /* Dimensiune mai mare pentru input */
-                padding: 15px; /* Mai mult padding în input */
-            }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
 
-            .btn-primary {
-                font-size: 1.5rem; /* Dimensiune mai mare pentru buton */
-                padding: 15px 40px; /* Mai mult padding pentru buton */
-            }
+        thead {
+            background-color: #343a40;
+            color: white;
+        }
 
-            .delete-btn {
-                background-color: #ff6347;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 15px 50px; /* Mai mult padding pentru butonul de ștergere */
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-                font-size: 1.5rem; /* Dimensiune mai mare pentru textul butonului */
-            }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-            .delete-btn:hover {
-                background-color: #ff2b0a;
-            }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
 
-            .fa-trash {
-                font-size: 1.8rem; /* Dimensiune mai mare pentru coșul de gunoi */
-                margin-right: 12px;
-            }
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-            .book-details {
-                background-color: #f8f9fa;
-                padding: 40px;
-                border-radius: 10px;
-                margin-bottom: 40px; /* Mai mult spațiu între detalii și buton */
-                text-align: left;
-                font-size: 1.5rem; /* Mărit dimensiunea textului pentru detalii */
-            }
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
 
-            .book-details p {
-                color: #555;
-                margin-bottom: 15px;
-            }
+        .btn-danger i {
+            margin-right: 8px;
+        }
 
-            .book-details strong {
-                color: #333;
-            }
-        </style>
+        .btn-secondary {
+            background-color: #6c757d;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-lg {
+            font-size: 18px;
+        }
+
+        .btn-home {
+            margin-top: 20px;
+        }
+    </style>
     </head>
     <body>
 
     <div class="container">
         <h3>Delete an author</h3>
-
-        <form th:action="@{/find/id/author}" method="get" class="form-inline">
-            <div class="input-group">
-                <input type="number" class="form-control" placeholder="Enter author id" name="authorId" required>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Find Author</button>
-                </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="table-container text-center col-8">
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Date of birth</th>
+                        <th>Date of death</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="author : ${authors}">
+                        <td th:text="${author.id}"></td>
+                        <td th:text="${author.name}"></td>
+                        <td th:text="${author.birthDate}"></td>
+                        <td th:text="${author.deathDate}"></td>
+                        <td>
+                            <form th:action="@{'/author/delete/' + ${author.id}}" method="post">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </form>
-
-        <div th:if="${author != null}" class="author-details">
-            <h4>Author Details</h4>
-            <p><strong>ID:</strong> <span th:text="${author.id}"></span></p>
-            <p><strong>Name:</strong> <span th:text="${author.name}"></span></p>
-            <p><strong>Birth Date:</strong> <span th:text="${author.birthDate}"></span></p>
-            <p><strong>Death Date:</strong> <span th:text="${author.deathDate}"></span></p>
-
-            <form th:action="@{/delete/author/{id}(id=${author.id})}" method="post">
-                <input type="hidden" name="_method" value="delete"/>
-                <button type="submit" class="delete-btn">
-                    <i class="fa-solid fa-trash"></i> Delete Author
-                </button>
-            </form>
-        </div>
-        <a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="http://localhost:8080/librarian" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
     </div>
-
+    </div>
     </body>
     </html>

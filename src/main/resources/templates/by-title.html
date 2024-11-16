@@ -3,83 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>Search for books by title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+
+    <!-- Optional: jQuery and Popper.js for Bootstrap JS components -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f4f4f4;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
-            max-width: 1000px; /* Lățime mai mare pentru monitor */
-            background-color: white;
-            padding: 60px; /* Padding mărit pentru mai mult spațiu */
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Umbră mai pronunțată */
-            text-align: center;
+            width: 60%;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h3 {
-            color: #333;
-            font-size: 2.5rem; /* Dimensiune mai mare pentru titlu */
-            margin-bottom: 40px; /* Mai mult spațiu sub titlu */
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 50px; /* Mai mult spațiu între formă și rezultate */
+            margin-bottom: 20px;
         }
 
         .form-control {
-            font-size: 1.5rem; /* Dimensiune mai mare pentru input */
-            padding: 15px; /* Mai mult padding în input */
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 12px;
+            font-size: 16px;
+            width: 80%;
         }
 
-        .btn-primary {
-            font-size: 1.5rem; /* Dimensiune mai mare pentru buton */
-            padding: 15px 40px; /* Mai mult padding pentru buton */
-        }
-
-        .delete-btn {
-            background-color: #ff6347;
-            color: white;
+        .input-group-append .btn {
+            border-radius: 8px;
+            background-color: #2BA9B0;
             border: none;
-            border-radius: 5px;
-            padding: 15px 50px; /* Mai mult padding pentru butonul de ștergere */
-            cursor: pointer;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: white;
             transition: background-color 0.3s ease;
-            font-size: 1.5rem; /* Dimensiune mai mare pentru textul butonului */
         }
 
-        .delete-btn:hover {
-            background-color: #ff2b0a;
+        .input-group-append .btn:hover {
+            background-color: #37D8E0;
         }
 
-        .fa-trash {
-            font-size: 1.8rem; /* Dimensiune mai mare pentru coșul de gunoi */
-            margin-right: 12px;
+        .btn-primary, .btn-secondary {
+            background-color: #2BA9B0;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
         }
 
-        .book-details {
-            background-color: #f8f9fa;
-            padding: 40px;
-            border-radius: 10px;
-            margin-bottom: 40px; /* Mai mult spațiu între detalii și buton */
-            text-align: left;
-            font-size: 1.5rem; /* Mărit dimensiunea textului pentru detalii */
+        .btn-primary:hover, .btn-secondary:hover {
+            background-color: #37D8E0;
         }
 
-        .book-details p {
-            color: #555;
-            margin-bottom: 15px;
+        .btn-primary i, .btn-secondary i {
+            margin-right: 8px;
         }
 
-        .book-details strong {
-            color: #333;
+        .already-borrowed {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        a.btn-secondary {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -101,7 +116,7 @@
     <h4>Book Details</h4>
     <p><strong>ID:</strong> <span th:text="${book.id}"></span></p>
     <p><strong>Title:</strong> <span th:text="${book.name}"></span></p>
-    <p><strong>Pages:</strong> <span th:text="${book.page}"></span></p>
+    <p><strong>Number of pages:</strong> <span th:text="${book.page}"></span></p>
     <p><strong>Price:</strong> <span th:text="${book.price}"></span></p>
     <p><strong>Author Name:</strong> <span th:text="${book.author.name}"></span></p>
 
@@ -124,7 +139,7 @@
         </button>
     </form>
     </div>
-<a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+<a href="http://localhost:8080/customer" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 
 </body>

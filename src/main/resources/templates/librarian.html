@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        .btn-home {
+            background-color: #2BA9B0;
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-home:hover {
+            background-color: #37D8E0;
+            transform: scale(1.05);
+        }
+
+        .btn-logout {
+            background-color: #FF6347;
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #e0523e;
+            transform: scale(1.05);
+        }
+
     body, html {
         height: 100%;
         margin: 0;
@@ -15,8 +51,8 @@
     .btn-custom-turquoise {
         background-color: #40E0D0;
         color: white;
-        padding: 30px 60px;  /* Dimensiuni mai mari */
-        font-size: 30px;      /* Font mai mare */
+        padding: 30px 60px;
+        font-size: 30px;
         border: none;
         border-radius: 10px;
         transition: background-color 0.3s ease;
@@ -26,18 +62,46 @@
         background-color: #36bfb3;
     }
 
-    .btn-custom-red {
-        background-color: #822B6A;
+    .btn-custom-update {
+        background-color: #A7C9FF;
         color: white;
-        padding: 30px 60px;  /* Dimensiuni mai mari */
-        font-size: 30px;      /* Font mai mare */
+        padding: 30px 60px;
+        font-size: 30px;
+        border: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom-update:hover {
+        background-color: #5887C9;
+    }
+
+    .btn-custom-return {
+        background-color: #FFF9C4;
+        color: white;
+        padding: 30px 60px;
+        font-size: 30px;
+        border: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom-return:hover {
+        background-color: #F5E66E;
+    }
+
+    .btn-custom-red {
+        background-color: #F5A1B5;
+        color: white;
+        padding: 30px 60px;
+        font-size: 30px;
         border: none;
         border-radius: 10px;
         transition: background-color 0.3s ease;
     }
 
     .btn-custom-red:hover {
-        background-color: #FF6347;
+        background-color: #BD526F;
     }
 
     .full-height {
@@ -50,20 +114,20 @@
 
     .button-container {
         display: flex;
-        justify-content: center; /* Aproape butoanele */
+        justify-content: center;
         margin-bottom: 20px;
-        width: 70%; /* Ajustăm lățimea pentru a apropia butoanele */
+        width: 70%;
     }
 
     .col-md-6 {
         display: flex;
         justify-content: center;
-        padding: 0; /* Eliminăm padding-ul implicit */
-        margin-right: 15px; /* Aproape butoanele, dar nu se ating */
+        padding: 0;
+        margin-right: 15px;
     }
 
     .col-md-6:last-child {
-        margin-right: 0; /* Eliminăm marginea dreapta pentru ultima coloană */
+        margin-right: 0;
     }
 </style>
 </head>
@@ -86,19 +150,11 @@
                 </button>
             </a>
         </div>
-
-<!--        <div class="col-md-6 text-center">-->
-<!--            <a href="http://localhost:8080/owner/save">-->
-<!--                <button type="button" class="btn btn-lg btn-custom-turquoise">-->
-<!--                    Add Customer-->
-<!--                </button>-->
-<!--            </a>-->
-<!--        </div>-->
     </div>
 
     <div class="row button-container">
         <div class="col-md-6 text-center">
-            <a href="http://localhost:8080/delete/book">
+            <a href="http://localhost:8080/book/for/delete">
                 <button type="button" class="btn btn-lg btn-custom-red">
                     Delete Book
                 </button>
@@ -107,26 +163,18 @@
 
 
         <div class="col-md-6 text-center">
-            <a href="http://localhost:8080/delete/author">
+            <a href="http://localhost:8080/author/delete">
                 <button type="button" class="btn btn-lg btn-custom-red">
                     Delete Author
                 </button>
             </a>
         </div>
-
-<!--        <div class="col-md-6 text-center">-->
-<!--            <a href="http://localhost:8080/owner/delete/page">-->
-<!--                <button type="button" class="btn btn-lg btn-custom-red">-->
-<!--                    Delete Customer-->
-<!--                </button>-->
-<!--            </a>-->
-<!--        </div>-->
         </div>
 
         <div class="row button-container">
         <div class="col-md-6 text-center">
             <a href="http://localhost:8080/update/a/book">
-                <button type="button" class="btn btn-lg btn-custom-red">
+                <button type="button" class="btn btn-lg btn-custom-update">
                     Update Book
                 </button>
             </a>
@@ -134,22 +182,32 @@
 
         <div class="col-md-6 text-center">
             <a href="http://localhost:8080/update/an/author">
-                <button type="button" class="btn btn-lg btn-custom-red">
+                <button type="button" class="btn btn-lg btn-custom-update">
                     Update Author
                 </button>
             </a>
         </div>
-
-<!--        <div class="col-md-6 text-center">-->
-<!--            <a href="http://localhost:8080/owner/update/page">-->
-<!--                <button type="button" class="btn btn-lg btn-custom-red">-->
-<!--                    Update Customer-->
-<!--                </button>-->
-<!--            </a>-->
-<!--        </div>-->
-
     </div>
-<a href="http://localhost:8080/home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i class="fa-solid fa-house"></i>Home</a>
+
+    <div class="row button-container">
+        <div class="col-md-6 text-center">
+            <a href="http://localhost:8080/return/book">
+                <button type="button" class="btn btn-lg btn-custom-return">
+                    Return Book
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row button-container">
+    <a href="http://localhost:8080/home" class="btn-home" role="button" aria-pressed="true">
+        <i class="fa-solid fa-house"></i>Home</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn-logout">
+            <i class="fa-solid fa-sign-out-alt"></i> Log Out
+        </button>
+    </form>
+    </div>
 </div>
 </body>
 </html>
